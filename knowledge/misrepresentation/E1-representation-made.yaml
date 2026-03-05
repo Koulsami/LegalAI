@@ -1,0 +1,42 @@
+# E1 — Representation Was Made
+# Layer: ELEMENTS
+# This is the entry node. Every analysis starts here.
+# Aashna: use this as the template for E2–E7 and all C/R/B nodes.
+
+id: E1
+name: Representation Was Made
+layer: ELEMENTS
+prerequisites: []
+
+required_facts:
+  - representations[*].statement
+  - representations[*].maker
+  - representations[*].recipient
+
+predicate: >
+  At least one RepresentationFact exists in the FactBundle with a non-empty
+  statement and a non-empty maker field. The representation must have been
+  communicated to an identifiable recipient before or during contract formation.
+
+conclusion: >
+  A representation was made. The analysis proceeds to determine whether it
+  constitutes a statement of existing fact (E2) and whether it was false (E3).
+
+burden: CLAIMANT
+modality: MUST
+protected: false
+
+abstention_policy: STRICT
+# STRICT = if required_facts are absent, node returns ABSTAINED and halts this branch.
+# PERMISSIVE = node may proceed with partial facts and flag uncertainty.
+
+citations:
+  - "Misrepresentation Act 1967 (Singapore Cap 390), s.2"
+  - "Tan Chin Seng v Raffles Town Club Pte Ltd [2003] 3 SLR(R) 307"
+  - "Broadley Construction Pte Ltd v Alacran Design Pte Ltd [2018] 2 SLR 110"
+
+notes: >
+  A representation may be express (verbal or written) or implied by conduct.
+  Silence does not ordinarily constitute a representation unless there is a
+  duty to disclose. Mere puffery ("the best apartment in town") does not satisfy
+  this node — E2 (statement of existing fact) screens for that.
