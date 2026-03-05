@@ -19,11 +19,13 @@ Given documents describing a transaction, this system:
 ## 2. THE SINGLE MOST IMPORTANT ARCHITECTURAL LAW
 
 ```
-LLM calls are ONLY permitted in src/extraction/
+LLM calls are permitted in src/ingestion/ AND src/extraction/ ONLY.
+All other modules are deterministic — no exceptions.
 ```
 
 | Module | LLM calls? | Notes |
 |---|---|---|
+| `src/ingestion/` | ✅ YES | Pipeline 1 — statute + judgment parsing |
 | `src/extraction/` | ✅ YES | Only place. Structured JSON output only. |
 | `src/knowledge/` | ❌ NO | Loads YAML. Pure I/O + validation. |
 | `src/validation/` | ❌ NO | Pure functions. Deterministic. |
@@ -32,7 +34,7 @@ LLM calls are ONLY permitted in src/extraction/
 | `src/orchestrator/` | ❌ NO | Sequences modules. Thin controller. |
 | `src/api/` | ❌ NO | Express routes. No business logic. |
 
-If you find yourself adding an LLM call outside `src/extraction/`, **stop and ask**.
+If you find yourself adding an LLM call outside `src/ingestion/` or `src/extraction/`, **stop and ask**.
 
 ---
 
@@ -48,6 +50,11 @@ src/
   firewall/       ← SHA-256 hash/verify protected fields. No LLM.
   orchestrator/   ← Sequences: extract → validate → reason → firewall.
   api/            ← Express endpoint. Calls orchestrator only.
+  ingestion/      ← Pipeline 1: statute + judgment → proposed YAML rules
+    statute/      ← Pipeline 1A: parse Act → propose rules
+    judgment/     ← Pipeline 1B: parse judgments → extract ratio → propose rules
+    review/       ← CLI human approval interface
+    committer/    ← Writes approved YAML to knowledge/misrepresentation/
 
 knowledge/
   misrepresentation/
@@ -59,6 +66,7 @@ tests/
   gold/           ← Riviera Bay fixture + test. The truth.
   unit/           ← Per-module tests.
   property/       ← fast-check property-based tests.
+  ingestion/      ← Test fixtures for statute + judgment parsing
 ```
 
 ---
@@ -180,25 +188,21 @@ No mock data in `src/` — test fixtures live in `tests/gold/` only.
 ## 9. CURRENT STATE
 
 **Week:** 1 — Foundations
-**Last completed:** Repository scaffold, `src/types/index.ts`, `CLAUDE.md`
-**In progress:** YAML loader (`src/knowledge/loader.ts`), CRG graph builder
+**Last completed:** Session 1 — src/utils/logger.ts + src/knowledge/loader.ts
+**Next:**
+  Session 2A — add Pipeline 1 types to src/types/index.ts
+  Session 2B — src/knowledge/graph-builder.ts (DAG + cycle detection)
 
 **Closed design decisions:**
-- D1: YAML files in git (not database)
-- D2: Per-representation classification then aggregate
-- D3: Extraction confidence only for MVP (not reasoning confidence)
-- D4: Configurable per-node abstention policy
-- D5: Auto-derive SEG schema from CRG fact slots + manual hints
-- D6: Structured report only for MVP (no LLM narrative)
-- D7: YAML + Git for knowledge management
-- D8: Expert-authored gold cases + property-based tests
-- D9: Gap-based multi-path trigger
-- D10: TypeScript / Node.js monolith
+- D1–D10 (unchanged)
+- D11: CLI review interface for MVP human approval
+- D12: Human does git commit after approving each batch
 
 **Open decisions:**
-- OD1: Azure OpenAI model choice for extraction (GPT-4o vs GPT-4-turbo)
-- OD2: Express vs Fastify for API layer
+- OD1: Azure OpenAI model (same model for Pipeline 1 and 2?)
+- OD2: Express vs Fastify
 - OD3: Logging library (winston vs pino)
+- OD4: PDF extraction library (pdf-parse vs pdfjs-dist)
 
 ---
 
