@@ -85,9 +85,9 @@ describe('evaluateElementsNode', () => {
     expect(result.node_id).toBe('E1');
     expect(result.node_name).toBe('Representation Was Made');
     expect(result.layer).toBe('ELEMENTS');
-    expect(result.facts_used).toHaveProperty('representations[*].statement');
-    expect(result.facts_used).toHaveProperty('representations[*].maker');
-    expect(result.facts_used).toHaveProperty('representations[*].recipient');
+    expect(result.facts_used['representations[*].statement']).toBeDefined();
+    expect(result.facts_used['representations[*].maker']).toBeDefined();
+    expect(result.facts_used['representations[*].recipient']).toBeDefined();
     expect(result.citations_applied).toContain('Misrepresentation Act s.2');
     expect(new Date(result.evaluated_at).toISOString()).toBe(result.evaluated_at);
   });

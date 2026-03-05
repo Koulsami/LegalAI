@@ -71,28 +71,10 @@ export function evaluateElementsNode(
   const missingPaths: string[] = [];
 
   // Step 1 & 2: resolve required_facts and identify missing paths
-  // For array wildcard paths like 'representations[*].statement', store in two ways:
-  //   - Flat key for direct bracket access: factsUsed['representations[*].statement']
-  //   - Nested structure for Jest toHaveProperty deep path:
-  //     factsUsed['representations']['*']['statement']
-  //     (Jest parses 'representations[*].statement' into ['representations','*','statement'])
   for (const path of node.required_facts) {
     if (isArrayWildcardPath(path)) {
       const { values, present } = resolveArrayWildcard(bundle, path);
-      // Flat key for bracket access
       factsUsed[path] = values;
-      // Nested keys for toHaveProperty deep path traversal
-      const markerIndex = path.indexOf(WILDCARD_MARKER);
-      const arrayKey = path.substring(0, markerIndex);
-      const fieldKey = path.substring(markerIndex + WILDCARD_MARKER.length);
-      if (!factsUsed[arrayKey] || typeof factsUsed[arrayKey] !== 'object') {
-        factsUsed[arrayKey] = {};
-      }
-      const arrayObj = factsUsed[arrayKey] as Record<string, unknown>;
-      if (!arrayObj['*'] || typeof arrayObj['*'] !== 'object') {
-        arrayObj['*'] = {};
-      }
-      (arrayObj['*'] as Record<string, unknown>)[fieldKey] = values;
       if (!present) {
         missingPaths.push(path);
       }
