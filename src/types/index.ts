@@ -326,3 +326,115 @@ export interface ApiError {
   readonly message: string;
   readonly details: unknown;
 }
+
+// ─── PIPELINE 1 — KNOWLEDGE INGESTION ──────────────────────────────────────
+
+/** A single section extracted from a statute PDF */
+export interface StatuteSection {
+  readonly section_number: string;    // e.g. "2", "2(1)", "3"
+  readonly heading: string;           // section title if present, empty string if not
+  readonly text: string;              // full verbatim text of the section
+  readonly source_document: string;   // filename of source PDF
+  readonly page: number | null;       // page number in source, null if unknown
+}
+
+/** Full parsed output of a statute document */
+export interface ParsedStatute {
+  readonly title: string;             // e.g. "Misrepresentation Act 1967"
+  readonly jurisdiction: string;      // "Singapore"
+  readonly cap: string;               // e.g. "Cap. 390"
+  readonly parsed_at: string;         // ISO timestamp
+  readonly sections: readonly StatuteSection[];
+  readonly source_document: string;
+}
+
+/** Full parsed output of a judgment document */
+export interface ParsedJudgment {
+  readonly case_name: string;         // e.g. "Derry v Peek"
+  readonly citation: string;          // e.g. "[1889] UKHL 1"
+  readonly court: string;             // e.g. "House of Lords"
+  readonly year: number;
+  readonly jurisdiction: string;      // "SG" | "UK" | "other"
+  readonly parsed_at: string;         // ISO timestamp
+  readonly full_text: string;         // full extracted text
+  readonly source_document: string;
+}
+
+/** Extracted ratio decidendi from a judgment */
+export interface RatioDecidendi {
+  readonly judgment_citation: string;
+  readonly ratio_text: string;        // verbatim or close paraphrase of the ratio
+  readonly principle: string;         // one-sentence summary of legal principle
+  readonly candidate_node_ids: readonly string[]; // CRG node IDs this may affect
+  readonly extraction_confidence: ExtractionConfidence; // reuse existing enum
+  readonly extraction_notes: string;
+}
+
+/** Source type for a proposed rule */
+export type RuleSource = 'STATUTE' | 'JUDGMENT';
+
+/** A CRG rule proposed by Pipeline 1 for human review */
+export interface ProposedRule {
+  readonly proposal_id: string;       // UUID
+  readonly source_type: RuleSource;
+  readonly source_reference: string;  // section number (1A) or citation (1B)
+  readonly proposed_at: string;       // ISO timestamp
+  readonly proposed_yaml: string;     // full YAML content as raw string
+  readonly node_preview: TreeNode;    // structured preview — reuse existing TreeNode
+  readonly rationale: string;         // LLM explanation of why this rule was proposed
+  readonly candidate_affects: readonly string[]; // IDs of existing nodes potentially affected
+  readonly extraction_confidence: ExtractionConfidence;
+}
+
+/** Human reviewer decision on a proposed rule */
+export type ReviewDecision = 'APPROVED' | 'REJECTED' | 'AMENDED';
+
+/** A proposed rule after human review */
+export interface ReviewedRule {
+  readonly proposal_id: string;
+  readonly decision: ReviewDecision;
+  readonly reviewed_at: string;       // ISO timestamp
+  readonly reviewer_notes: string;    // human's comments — empty string if none
+  readonly final_yaml: string;        // proposed_yaml if APPROVED, amended content if AMENDED
+}
+
+/** A batch of proposed rules submitted for human review */
+export interface ReviewBatch {
+  readonly batch_id: string;
+  readonly created_at: string;        // ISO timestamp
+  readonly source_type: RuleSource;
+  readonly proposals: readonly ProposedRule[];
+}
+
+/** Result of reviewing a full batch */
+export interface ReviewBatchResult {
+  readonly batch_id: string;
+  readonly completed_at: string;      // ISO timestamp
+  readonly decisions: readonly ReviewedRule[];
+  readonly approved_count: number;
+  readonly rejected_count: number;
+  readonly amended_count: number;
+}
+
+/** Record of a single approved rule written to disk */
+export interface CommitRecord {
+  readonly proposal_id: string;
+  readonly node_id: string;           // the id field from the approved TreeNode
+  readonly yaml_filename: string;     // e.g. "E2-statement-of-fact.yaml"
+  readonly written_at: string;        // ISO timestamp
+}
+
+/** Result of committing a batch of approved rules */
+export interface CommitResult {
+  readonly batch_id: string;
+  readonly committed_at: string;      // ISO timestamp
+  readonly records: readonly CommitRecord[];
+  readonly success_count: number;
+  readonly failed: readonly CommitFailure[];
+}
+
+/** A single commit failure */
+export interface CommitFailure {
+  readonly proposal_id: string;
+  readonly error: string;
+}
