@@ -61,7 +61,17 @@ export function evaluateCL1Fraudulent(
   representationId: string
 ): NodeEvaluation {
   const rep = findRepresentation(bundle, representationId);
-  const knowledge = rep?.maker_knowledge;
+
+  if (rep === undefined) {
+    return buildEvaluation(
+      node,
+      'ABSTAINED',
+      undefined,
+      `Node ${node.id}: representation ${representationId} not found in bundle.`
+    );
+  }
+
+  const knowledge = rep.maker_knowledge;
 
   let outcome: NodeOutcome;
   let reasoningTrace: string;
@@ -101,7 +111,17 @@ export function evaluateCL2NegligentStatutory(
   representationId: string
 ): NodeEvaluation {
   const rep = findRepresentation(bundle, representationId);
-  const knowledge = rep?.maker_knowledge;
+
+  if (rep === undefined) {
+    return buildEvaluation(
+      node,
+      'ABSTAINED',
+      undefined,
+      `Node ${node.id}: representation ${representationId} not found in bundle.`
+    );
+  }
+
+  const knowledge = rep.maker_knowledge;
 
   let outcome: NodeOutcome;
   let reasoningTrace: string;
@@ -140,7 +160,17 @@ export function evaluateCL4Innocent(
   representationId: string
 ): NodeEvaluation {
   const rep = findRepresentation(bundle, representationId);
-  const knowledge = rep?.maker_knowledge;
+
+  if (rep === undefined) {
+    return buildEvaluation(
+      node,
+      'ABSTAINED',
+      undefined,
+      `Node ${node.id}: representation ${representationId} not found in bundle.`
+    );
+  }
+
+  const knowledge = rep.maker_knowledge;
 
   let outcome: NodeOutcome;
   let reasoningTrace: string;

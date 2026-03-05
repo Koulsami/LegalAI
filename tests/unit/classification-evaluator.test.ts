@@ -141,6 +141,14 @@ describe('evaluateCL1Fraudulent', () => {
     expect(result.outcome).toBe('ABSTAINED');
     expect(result.reasoning_trace.toLowerCase()).toContain('unknown');
   });
+
+  // TEST 5B — representation not found in bundle
+  it('returns ABSTAINED when representationId is not found', () => {
+    const bundle = makeBundle({ representations: [] });
+    const result = evaluateCL1Fraudulent(cl1Node, bundle, 'NONEXISTENT');
+    expect(result.outcome).toBe('ABSTAINED');
+    expect(result.reasoning_trace).toContain('not found');
+  });
 });
 
 // ─── CL2 NEGLIGENT STATUTORY TESTS ─────────────────────────────────────────
@@ -187,6 +195,14 @@ describe('evaluateCL2NegligentStatutory', () => {
 
     expect(result.outcome).toBe('ABSTAINED');
   });
+
+  // TEST 10B — representation not found in bundle
+  it('returns ABSTAINED when representationId is not found', () => {
+    const bundle = makeBundle({ representations: [] });
+    const result = evaluateCL2NegligentStatutory(cl2Node, bundle, 'NONEXISTENT');
+    expect(result.outcome).toBe('ABSTAINED');
+    expect(result.reasoning_trace).toContain('not found');
+  });
 });
 
 // ─── CL4 INNOCENT TESTS ────────────────────────────────────────────────────
@@ -223,5 +239,13 @@ describe('evaluateCL4Innocent', () => {
     const result = evaluateCL4Innocent(cl4Node, bundle, 'R1');
 
     expect(result.outcome).toBe('ABSTAINED');
+  });
+
+  // TEST 14B — representation not found in bundle
+  it('returns ABSTAINED when representationId is not found', () => {
+    const bundle = makeBundle({ representations: [] });
+    const result = evaluateCL4Innocent(cl4Node, bundle, 'NONEXISTENT');
+    expect(result.outcome).toBe('ABSTAINED');
+    expect(result.reasoning_trace).toContain('not found');
   });
 });
