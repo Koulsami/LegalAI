@@ -3,7 +3,6 @@ import type {
   ClassificationResult,
   RemedyResult,
 } from '../../src/types';
-// @ts-expect-error — Step A: firewall.ts has no exports yet
 import { protect, verify } from '../../src/firewall/firewall';
 
 // ─── HELPERS ────────────────────────────────────────────────────────────────
