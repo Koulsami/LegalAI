@@ -1,5 +1,4 @@
 import request from 'supertest';
-// @ts-expect-error — Step A: api/index.ts has no exports yet
 import { app } from '../../src/api/index';
 
 // ─── TESTS ──────────────────────────────────────────────────────────────────
