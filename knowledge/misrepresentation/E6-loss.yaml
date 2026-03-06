@@ -11,7 +11,6 @@ prerequisites:
 required_facts:
   - representations[*].truth_value
   - loss_amount
-  - loss_type
 
 predicate: >
   The representee suffered loss or damage as a result
@@ -47,3 +46,7 @@ notes: >
   added — loss quantum and category are the primary
   facts consumed by this node and by REM2 (damages)
   (approved Q9, Aashna, 2025).
+  Correction: loss_type removed from required_facts —
+  the engine needs to know whether loss occurred and
+  how much, not the category of loss (approved Aashna,
+  2025).

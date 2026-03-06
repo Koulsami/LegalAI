@@ -12,6 +12,7 @@ prerequisites:
 required_facts:
   - representations[*].truth_value
   - representations[*].statement
+  - representations[*].maker
 
 predicate: >
   The false statement of fact would be considered
@@ -44,3 +45,7 @@ notes: >
   replaces representations[*].maker — materiality is
   assessed against what was stated, not who stated it
   (approved Q6, Aashna, 2025).
+  Correction: representations[*].maker re-added —
+  both who made the statement and what was said are
+  relevant to materiality assessment (approved Aashna,
+  2025).
