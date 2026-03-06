@@ -1,0 +1,57 @@
+# BAR1 — Affirmation After Discovery
+# Layer: BARS
+# Prerequisites: META1 (claim viability gate), REM1 (rescission)
+
+id: BAR1
+name: Affirmation After Discovery
+layer: BARS
+prerequisites:
+  - META1
+  - REM1
+
+required_facts:
+  - representations[*].induced_contract
+  - representations[*].recipient
+
+predicate: >
+  After discovering the misrepresentation, the
+  claimant acted in a manner consistent with
+  continuing to treat the contract as valid —
+  for example by continuing to make payments,
+  accepting benefits under the contract, or
+  otherwise conducting themselves as if bound.
+  The burden of proving affirmation falls on the
+  defendant. Affirmation bars rescission only —
+  it does not affect the right to claim damages.
+  The engine flags this bar as potentially active
+  and leaves the final determination to the
+  reviewing lawyer.
+
+conclusion: >
+  Affirmation may bar rescission. If the claimant
+  affirmed the contract after discovering the
+  misrepresentation, the right to rescind may be
+  lost. Damages remain available. The reviewing
+  lawyer must advise on whether affirmation has
+  occurred on the facts.
+
+burden: DEFENDANT
+modality: MAY
+protected: true
+abstention_policy: PERMISSIVE
+
+citations:
+  - "Long v Lloyd [1958] 1 WLR 753 (CA) — affirmation after discovery bars rescission"
+  - "Peyman v Lanjani [1985] Ch 457 (CA) — knowledge required for affirmation"
+  - "Common Law — affirmation as bar to rescission"
+
+notes: >
+  DRAFT — pending legal review by Aashna.
+  Bars rescission only — not damages (approved
+  Aashna, 2025).
+  Burden on DEFENDANT to prove affirmation
+  (approved Aashna, 2025).
+  PERMISSIVE — engine flags if facts suggest
+  continued conduct post-discovery; does not
+  decide whether affirmation has occurred.
+  protected: true — Validation Firewall applies.

@@ -1,0 +1,60 @@
+# BAR5 — Limitation Period
+# Layer: BARS
+# Prerequisite: META1 (claim viability gate)
+
+id: BAR5
+name: Limitation Period
+layer: BARS
+prerequisites:
+  - META1
+
+required_facts:
+  - representations[*].induced_contract
+  - representations[*].maker_knowledge
+
+predicate: >
+  The general limitation period for a
+  misrepresentation claim is 6 years from the date
+  the cause of action arose. For fraudulent
+  misrepresentation, the limitation period is
+  extended — time begins to run only from the date
+  the claimant discovered the fraud, or could with
+  reasonable diligence have discovered it. The
+  burden of raising the limitation defence falls
+  on the defendant. The engine flags this bar as
+  potentially applicable and leaves the
+  determination to the reviewing lawyer.
+
+conclusion: >
+  The limitation period may bar the claim. If more
+  than 6 years have passed since the cause of action
+  arose (or since discovery in fraud cases), the
+  claim may be time-barred. The reviewing lawyer must
+  advise on whether the limitation period has expired
+  and whether the fraud extension applies.
+
+burden: DEFENDANT
+modality: MAY
+protected: true
+abstention_policy: PERMISSIVE
+
+citations:
+  - "Limitation Act (Cap 163, 1996 Rev Ed) s.6 — 6-year limitation period"
+  - "Limitation Act (Cap 163, 1996 Rev Ed) s.29 — extension for fraud, concealment or mistake"
+  - "Misrepresentation Act 1967 (2020 Rev Ed)"
+
+notes: >
+  DRAFT — pending legal review by Aashna.
+  Applies to the whole claim — not rescission only.
+  Burden on DEFENDANT (approved Aashna, 2025).
+  Fraud extension confirmed applicable in Singapore
+  under s.29 Limitation Act (approved Aashna, 2025).
+  Overlaps with BAR2 (equitable lapse of time) in
+  practice — both flagged if potentially applicable.
+  PERMISSIVE — engine flags if transaction date
+  suggests potential limitation issue; does not
+  decide whether period has expired.
+  protected: true — Validation Firewall applies.
+  Note: BAR5 prerequisite is META1 only (not REM1)
+  because limitation bars the whole claim, not only
+  rescission.

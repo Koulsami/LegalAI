@@ -1,0 +1,56 @@
+# XS1 — Exclusion Clause Control
+# Layer: BARS
+# Prerequisite: META1 (claim viability gate)
+
+id: XS1
+name: Exclusion Clause Control
+layer: BARS
+prerequisites:
+  - META1
+
+required_facts:
+  - representations[*].statement
+  - representations[*].recipient
+
+predicate: >
+  The contract contains a clause that purports to
+  exclude or restrict liability for misrepresentation,
+  or to restrict remedies available to the claimant
+  in the event of misrepresentation. Under s.3 of
+  the Misrepresentation Act, such a clause is of no
+  effect unless it satisfies the requirement of
+  reasonableness under s.11(1) of the Unfair Contract
+  Terms Act. Whether a clause is reasonable is a
+  question of fact and degree for the court. The
+  engine flags the presence of such a clause for
+  lawyer review and does not decide its validity.
+
+conclusion: >
+  An exclusion or limitation clause has been
+  identified. Its validity depends on whether it
+  satisfies the UCTA reasonableness test. The
+  reviewing lawyer must advise on whether the clause
+  is likely to be upheld and its effect on the
+  available remedies.
+
+burden: DEFENDANT
+modality: MAY
+protected: false
+abstention_policy: PERMISSIVE
+
+citations:
+  - "Misrepresentation Act 1967 (2020 Rev Ed) s.3 — exclusion clauses subject to reasonableness"
+  - "Unfair Contract Terms Act (Cap 396) s.11(1) — reasonableness test"
+  - "Singapore — UCTA applies to non-consumer business contracts"
+
+notes: >
+  DRAFT — pending legal review by Aashna.
+  FLAGGED-BUT-NOT-DECIDED (approved Aashna, 2025).
+  Engine identifies the presence of an exclusion
+  clause and flags it. It does not assess whether
+  the clause is reasonable — that is a judicial
+  determination.
+  protected: false — no Firewall hashing on an
+  undecided node.
+  PERMISSIVE abstention — engine proceeds and flags
+  even if clause wording is unclear.

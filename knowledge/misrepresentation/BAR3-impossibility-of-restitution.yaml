@@ -1,0 +1,57 @@
+# BAR3 — Impossibility of Restitution
+# Layer: BARS
+# Prerequisites: META1 (claim viability gate), REM1 (rescission)
+
+id: BAR3
+name: Impossibility of Restitution
+layer: BARS
+prerequisites:
+  - META1
+  - REM1
+
+required_facts:
+  - representations[*].induced_contract
+  - representations[*].statement
+
+predicate: >
+  Rescission requires restoring both parties to their
+  pre-contractual positions. If the subject matter of
+  the contract has been significantly altered,
+  consumed, transferred, or cannot otherwise be
+  returned, restitution may be impossible and
+  rescission may not be available. The burden of
+  proving impossibility of restitution falls on the
+  defendant. The engine flags this bar as potentially
+  active and leaves the determination to the
+  reviewing lawyer.
+
+conclusion: >
+  Impossibility of restitution may bar rescission.
+  If the parties cannot be restored to their original
+  positions, the court may refuse to grant rescission.
+  Damages may still be available. The reviewing lawyer
+  must advise on whether restitution is in fact
+  impossible on the facts.
+
+burden: DEFENDANT
+modality: MAY
+protected: true
+abstention_policy: PERMISSIVE
+
+citations:
+  - "Clarke v Dickson (1858) EB & E 148 — restitution must be possible for rescission to be granted"
+  - "Erlanger v New Sombrero Phosphate Co (1878) 3 App Cas 1218 (HL) — substantial restitution sufficient"
+  - "Common Law and Equity — impossibility of restitution as bar"
+
+notes: >
+  DRAFT — pending legal review by Aashna.
+  Bars rescission only — not damages (approved
+  Aashna, 2025).
+  Burden on DEFENDANT (approved Aashna, 2025).
+  Note: courts apply a flexible approach — precise
+  counter-restitution is not required, substantial
+  restoration is sufficient (Erlanger).
+  PERMISSIVE — engine flags if facts suggest
+  significant change to subject matter; does not
+  decide impossibility.
+  protected: true — Validation Firewall applies.

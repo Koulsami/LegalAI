@@ -1,0 +1,58 @@
+# BAR2 — Lapse of Time
+# Layer: BARS
+# Prerequisites: META1 (claim viability gate), REM1 (rescission)
+
+id: BAR2
+name: Lapse of Time
+layer: BARS
+prerequisites:
+  - META1
+  - REM1
+
+required_facts:
+  - representations[*].induced_contract
+
+predicate: >
+  The claimant delayed unreasonably in seeking
+  rescission after discovering the misrepresentation.
+  In equity, delay may bar rescission even where the
+  statutory limitation period has not yet expired.
+  The burden of proving lapse of time falls on the
+  defendant. This bar operates in equity and overlaps
+  in practice with the statutory limitation period
+  (BAR5) — both address the same concern of undue
+  delay. The engine flags this bar as potentially
+  active and leaves the determination to the
+  reviewing lawyer.
+
+conclusion: >
+  Lapse of time may bar rescission. Unreasonable
+  delay in seeking rescission after discovery of the
+  misrepresentation may extinguish the equitable
+  right to rescind. This overlaps with the statutory
+  limitation period (BAR5). The reviewing lawyer must
+  advise on whether delay on the facts is sufficient
+  to bar rescission.
+
+burden: DEFENDANT
+modality: MAY
+protected: true
+abstention_policy: PERMISSIVE
+
+citations:
+  - "Leaf v International Galleries [1950] 2 KB 86 (CA) — delay bars rescission in equity"
+  - "Common Law and Equity — lapse of time as bar to rescission"
+
+notes: >
+  DRAFT — pending legal review by Aashna.
+  Bars rescission only — not damages.
+  Burden on DEFENDANT (approved Aashna, 2025).
+  Aashna confirmed BAR2 and BAR5 address the same
+  practical concern — both are authored separately
+  but lawyer should be aware of the overlap.
+  BAR2 operates in equity; BAR5 operates under the
+  Limitation Act. Both are flagged if potentially
+  applicable.
+  PERMISSIVE — engine flags delay; does not decide
+  whether it is unreasonable.
+  protected: true — Validation Firewall applies.

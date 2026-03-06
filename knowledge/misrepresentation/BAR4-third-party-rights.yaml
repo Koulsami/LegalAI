@@ -1,0 +1,54 @@
+# BAR4 — Third Party Rights
+# Layer: BARS
+# Prerequisites: META1 (claim viability gate), REM1 (rescission)
+
+id: BAR4
+name: Third Party Rights
+layer: BARS
+prerequisites:
+  - META1
+  - REM1
+
+required_facts:
+  - representations[*].induced_contract
+  - representations[*].recipient
+
+predicate: >
+  A third party has acquired rights over the subject
+  matter of the contract in good faith and for value,
+  after the contract was formed but before rescission
+  was sought. Rescission cannot be granted if it would
+  defeat the rights of an innocent third party. The
+  burden of proving third party rights falls on the
+  claimant. The engine flags this bar as potentially
+  active and leaves the determination to the
+  reviewing lawyer.
+
+conclusion: >
+  Third party rights may bar rescission. If an
+  innocent third party has acquired rights over the
+  subject matter for value, rescission may not be
+  available. Damages may still be available. The
+  reviewing lawyer must advise on whether third party
+  rights have been acquired on the facts.
+
+burden: CLAIMANT
+modality: MAY
+protected: true
+abstention_policy: PERMISSIVE
+
+citations:
+  - "Phillips v Brooks Ltd [1919] 2 KB 243 — third party rights bar rescission"
+  - "White v Garden (1851) 10 CB 919 — bona fide purchaser for value without notice"
+  - "Common Law — nemo dat and bona fide purchaser principles"
+
+notes: >
+  DRAFT — pending legal review by Aashna.
+  Bars rescission only — not damages (approved
+  Aashna, 2025).
+  Burden on CLAIMANT — unusually, claimant bears
+  burden here (approved Aashna, 2025).
+  PERMISSIVE — engine flags if facts suggest third
+  party involvement; does not decide whether rights
+  were acquired in good faith and for value.
+  protected: true — Validation Firewall applies.
