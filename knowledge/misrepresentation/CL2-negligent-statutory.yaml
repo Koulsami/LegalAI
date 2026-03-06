@@ -1,0 +1,60 @@
+# CL2 — Negligent Misrepresentation — Statutory s.2(1)
+# Layer: CLASSIFICATION
+# Prerequisites: META1 (claim viability gate), CL1 (fraud must be resolved first)
+
+id: CL2
+name: Negligent Misrepresentation — Statutory s.2(1)
+layer: CLASSIFICATION
+prerequisites:
+  - META1
+  - CL1
+
+required_facts:
+  - representations[*].maker_knowledge
+
+predicate: >
+  CL1 (fraud) is NOT_SATISFIED. The burden falls on
+  the defendant (maker) to prove both that they had
+  reasonable grounds for believing the statement was
+  true AND that they actually believed it was true up
+  to the time the contract was made. If the defendant
+  cannot show evidence of both, this node is SATISFIED
+  and the claimant succeeds under s.2(1) automatically.
+  maker_knowledge = NO_REASONABLE_BELIEF or UNKNOWN
+  means the defendant has not discharged the burden —
+  node is SATISFIED. maker_knowledge = REASONABLE_BELIEF
+  means the defendant has discharged the burden —
+  node is NOT_SATISFIED.
+  Whether the evidence of reasonable grounds is
+  sufficient is flagged for lawyer review.
+
+conclusion: >
+  Negligent misrepresentation under s.2(1) is
+  established. The defendant failed to prove reasonable
+  grounds for belief. The claimant is entitled to
+  damages measured as if the misrepresentation were
+  fraudulent (Royscot Trust v Rogerson), and to
+  rescission subject to bars.
+
+burden: DEFENDANT
+modality: MUST
+protected: true
+
+abstention_policy: PERMISSIVE
+
+citations:
+  - "Misrepresentation Act 1967 (2020 Rev Ed) s.2(1) — reversed burden on the maker"
+  - "Royscot Trust Ltd v Rogerson [1991] 2 QB 297 (CA) — damages under s.2(1) measured as if fraudulent"
+  - "Panatron Pte Ltd v Lee Cheow Lee [2001] 2 SLR(R) 435 (SGCA)"
+
+notes: >
+  DRAFT — pending legal review by Aashna.
+  CRITICAL — REVERSED BURDEN: under s.2(1) the maker
+  must prove reasonable grounds and actual belief.
+  The claimant does not need to prove carelessness.
+  PERMISSIVE abstention — absence of evidence of
+  reasonable grounds favours the claimant. Engine
+  checks whether evidence of reasonable grounds exists;
+  lawyer judges whether that evidence is sufficient
+  (approved Aashna, 2025).
+  protected: true — Validation Firewall applies.

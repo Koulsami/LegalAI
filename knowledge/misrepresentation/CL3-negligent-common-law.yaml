@@ -1,0 +1,53 @@
+# CL3 — Negligent Misrepresentation — Common Law
+# Layer: CLASSIFICATION
+# Prerequisites: META1 (claim viability gate), CL1 (fraud must be resolved first)
+
+id: CL3
+name: Negligent Misrepresentation — Common Law
+layer: CLASSIFICATION
+prerequisites:
+  - META1
+  - CL1
+
+required_facts:
+  - representations[*].maker_knowledge
+
+predicate: >
+  CL1 (fraud) is NOT_SATISFIED. A special relationship
+  existed between the parties giving rise to a duty of
+  care (Hedley Byrne principle), and that duty was
+  breached. Full analysis of proximity and assumption
+  of responsibility is beyond the scope of this
+  version of the engine. This node is flagged for
+  lawyer review and does not produce a classification.
+
+conclusion: >
+  Common law negligent misrepresentation may apply.
+  Full Hedley Byrne analysis — including special
+  relationship, proximity, and assumption of
+  responsibility — is required and must be completed
+  by the reviewing lawyer. Engine does not decide
+  this element.
+
+burden: CLAIMANT
+modality: MAY
+protected: false
+
+abstention_policy: PERMISSIVE
+
+citations:
+  - "Hedley Byrne & Co Ltd v Heller & Partners Ltd [1964] AC 465 (HL) — duty of care in negligent misstatement"
+  - "Spandeck Engineering (S) Pte Ltd v Defence Science & Technology Agency [2007] 4 SLR(R) 100 (SGCA) — Singapore test for duty of care"
+
+notes: >
+  DRAFT — pending legal review by Aashna.
+  FLAGGED-BUT-NOT-DECIDED for MVP (approved Aashna,
+  2025). Engine surfaces this node as potentially
+  applicable but ABSTAINs on classification.
+  Full Hedley Byrne analysis deferred to v2.
+  protected: false — no Firewall hashing on an
+  undecided node.
+  Singapore duty of care test: Spandeck two-stage
+  test (factual foreseeability + proximity, then
+  policy considerations) applies in place of English
+  Caparo test.

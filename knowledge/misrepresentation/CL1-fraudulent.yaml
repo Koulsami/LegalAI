@@ -1,0 +1,53 @@
+# CL1 — Fraudulent Misrepresentation
+# Layer: CLASSIFICATION
+# Prerequisite: META1 (claim viability gate)
+
+id: CL1
+name: Fraudulent Misrepresentation
+layer: CLASSIFICATION
+prerequisites:
+  - META1
+
+required_facts:
+  - representations[*].maker_knowledge
+
+predicate: >
+  The maker of the representation either knew it was
+  false (maker_knowledge = KNEW_FALSE) or made it
+  recklessly, not caring whether it was true or false
+  (maker_knowledge = RECKLESS). Either condition alone
+  is sufficient to establish fraudulent
+  misrepresentation. maker_knowledge = UNKNOWN causes
+  this node to ABSTAIN — fraud is a serious finding
+  and cannot be assumed.
+
+conclusion: >
+  Fraudulent misrepresentation is established. The
+  maker acted dishonestly within the meaning of
+  Derry v Peek. The claimant is entitled to rescission
+  and damages in the tort of deceit, including
+  unforeseeable losses.
+
+burden: CLAIMANT
+modality: MUST
+protected: true
+
+abstention_policy: STRICT
+
+citations:
+  - "Derry v Peek (1889) 14 App Cas 337 (HL) — fraud requires knowledge of falsity or recklessness as to truth"
+  - "Panatron Pte Ltd v Lee Cheow Lee [2001] 2 SLR(R) 435 (SGCA) at [13] — Derry v Peek tripartite test adopted in Singapore"
+  - "Misrepresentation Act 1967 (2020 Rev Ed) (Cap 390)"
+
+notes: >
+  DRAFT — pending legal review by Aashna.
+  STRICT abstention — fraud is a serious allegation.
+  If maker_knowledge = UNKNOWN, engine ABSTAINs and
+  surfaces flag: "Maker's knowledge cannot be
+  determined — fraudulent misrepresentation cannot be
+  established without evidence of knowledge or
+  recklessness."
+  Either KNEW_FALSE or RECKLESS alone is sufficient —
+  they need not both be shown (approved Aashna, 2025).
+  protected: true — Validation Firewall hashes this
+  node's output before any LLM explanation is generated.

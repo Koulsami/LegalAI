@@ -1,0 +1,53 @@
+# CL4 — Innocent Misrepresentation
+# Layer: CLASSIFICATION
+# Prerequisites: META1 (claim viability gate), CL1 (fraud), CL2 (negligent statutory)
+
+id: CL4
+name: Innocent Misrepresentation
+layer: CLASSIFICATION
+prerequisites:
+  - META1
+  - CL1
+  - CL2
+
+required_facts:
+  - representations[*].maker_knowledge
+
+predicate: >
+  CL1 (fraud) is NOT_SATISFIED and CL2 (negligent
+  statutory) is NOT_SATISFIED. The defendant has
+  proved they had reasonable grounds for believing
+  the statement was true and did actually believe it
+  (maker_knowledge = REASONABLE_BELIEF). This node is
+  only reachable after both CL1 and CL2 have been
+  fully resolved.
+
+conclusion: >
+  Innocent misrepresentation is established. The maker
+  held an honest and reasonably grounded belief in the
+  truth of the statement. Rescission is available in
+  principle but the court has discretion under s.2(2)
+  to award damages in lieu of rescission. The final
+  remedy determination requires lawyer review.
+
+burden: DEFENDANT
+modality: MUST
+protected: true
+
+abstention_policy: STRICT
+
+citations:
+  - "Misrepresentation Act 1967 (2020 Rev Ed) s.2(2) — court discretion to award damages in lieu of rescission for non-fraudulent misrepresentation"
+  - "Panatron Pte Ltd v Lee Cheow Lee [2001] 2 SLR(R) 435 (SGCA)"
+
+notes: >
+  DRAFT — pending legal review by Aashna.
+  STRICT abstention — CL4 is only reachable after CL1
+  and CL2 are both NOT_SATISFIED. If either is
+  unresolved, CL4 ABSTAINs.
+  Remedy note: rescission is available in principle
+  but s.2(2) gives the court discretion to award
+  damages in lieu. Whether rescission or damages in
+  lieu applies depends on judicial discretion and
+  is flagged for lawyer review (approved Aashna, 2025).
+  protected: true — Validation Firewall applies.
