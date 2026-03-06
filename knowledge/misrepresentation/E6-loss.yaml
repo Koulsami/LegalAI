@@ -1,0 +1,43 @@
+# E6 — Loss or Damage
+# Layer: ELEMENTS
+# Prerequisite: E5 (causation)
+
+id: E6
+name: Loss or Damage
+layer: ELEMENTS
+prerequisites:
+  - E5
+
+required_facts:
+  - representations[*].truth_value
+
+predicate: >
+  The representee suffered loss or damage as a result
+  of entering into the contract in reliance on the
+  false representation. Loss is required for a damages
+  claim. Loss is NOT required for rescission —
+  rescission is available on proof of elements E1-E5
+  alone.
+
+conclusion: >
+  Loss or damage is established. The representee
+  suffered quantifiable harm as a result of the
+  misrepresentation.
+
+burden: CLAIMANT
+modality: MAY
+protected: false
+
+abstention_policy: PERMISSIVE
+
+citations:
+  - "Misrepresentation Act 1967 (2020 Rev Ed) s.2(1) — damages require proof of loss"
+  - "Misrepresentation Act 1967 (2020 Rev Ed) s.1 — rescission does not require proof of loss"
+  - "Panatron Pte Ltd v Lee Cheow Lee [2001] 2 SLR(R) 435 (SGCA) at [14] — element (d) suffered damage"
+
+notes: >
+  DRAFT — pending legal review by Aashna.
+  CRITICAL: E6 is NOT a prerequisite of REM1 (rescission).
+  E6 is a prerequisite of REM2 (damages) only.
+  modality MAY and PERMISSIVE because absence of E6 does
+  not block the claim — it only affects remedy availability.

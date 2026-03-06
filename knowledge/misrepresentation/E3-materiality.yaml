@@ -1,0 +1,42 @@
+# E3 — Materiality
+# Layer: ELEMENTS
+# Prerequisites: E2 (falsity), E2B (statement of fact)
+
+id: E3
+name: Materiality
+layer: ELEMENTS
+prerequisites:
+  - E2
+  - E2B
+
+required_facts:
+  - representations[*].truth_value
+  - representations[*].maker
+
+predicate: >
+  The false statement of fact would be considered
+  material by a reasonable person in the position of
+  the representee. A representation is material if it
+  would influence a reasonable person's decision to
+  enter into the contract on the terms agreed.
+
+conclusion: >
+  Materiality is established. The false representation
+  relates to a matter that a reasonable person would
+  consider significant in deciding whether to contract.
+
+burden: CLAIMANT
+modality: MUST
+protected: false
+
+abstention_policy: PERMISSIVE
+
+citations:
+  - "Common Law — materiality requirement"
+  - "Panatron Pte Ltd v Lee Cheow Lee [2001] 2 SLR(R) 435 (SGCA) — representation must be material to induce contract"
+
+notes: >
+  DRAFT — pending legal review by Aashna.
+  PERMISSIVE — materiality is often inferable from context
+  (price, quality, title terms are presumptively material).
+  Objective reasonable person test, not purely subjective.

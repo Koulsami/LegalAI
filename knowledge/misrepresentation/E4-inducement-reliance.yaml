@@ -1,0 +1,45 @@
+# E4 — Inducement and Reliance
+# Layer: ELEMENTS
+# Prerequisite: E3 (materiality)
+
+id: E4
+name: Inducement and Reliance
+layer: ELEMENTS
+prerequisites:
+  - E3
+
+required_facts:
+  - representations[*].maker
+  - representations[*].recipient
+  - representations[*].induced_contract
+
+predicate: >
+  The representee knew of the representation before
+  acting and was induced by it to enter into the
+  contract. The representation need not be the sole
+  inducing factor — it must have played a real and
+  substantial part in the decision to contract.
+
+conclusion: >
+  Inducement and reliance are established. The
+  representee entered into the contract in reliance on
+  the false statement.
+
+burden: CLAIMANT
+modality: MUST
+protected: false
+
+abstention_policy: STRICT
+
+citations:
+  - "Panatron Pte Ltd v Lee Cheow Lee [2001] 2 SLR(R) 435 (SGCA) at [23] — real and substantial part test"
+  - "Edgington v Fitzmaurice (1885) 29 Ch D 459 — partial reliance sufficient"
+  - "JEB Fasteners Ltd v Marks Bloom & Co [1983] 1 All ER 583 — representee need not rely solely on representation"
+
+notes: >
+  DRAFT — pending legal review by Aashna.
+  STRICT abstention — if induced_contract is UNKNOWN,
+  the engine cannot establish this element.
+  Note: claimant cannot rely on a representation they
+  did not know about at the time of contracting
+  (Horsfall v Thomas (1862) 1 H&C 90).

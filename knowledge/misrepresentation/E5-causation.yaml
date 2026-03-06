@@ -1,0 +1,45 @@
+# E5 — Causation
+# Layer: ELEMENTS
+# Prerequisite: E4 (inducement and reliance)
+
+id: E5
+name: Causation
+layer: ELEMENTS
+prerequisites:
+  - E4
+
+required_facts:
+  - representations[*].induced_contract
+  - representations[*].truth_value
+
+predicate: >
+  The reliance on the false representation caused the
+  representee to enter into the contract. The false
+  statement was an effective cause of the contract
+  being formed. But-for causation applies: the
+  representee would not have contracted, or would not
+  have contracted on the same terms, absent the
+  misrepresentation.
+
+conclusion: >
+  Causation is established. The misrepresentation
+  was an effective cause of the representee entering
+  into the contract.
+
+burden: CLAIMANT
+modality: MUST
+protected: false
+
+abstention_policy: STRICT
+
+citations:
+  - "Common Law — causation in misrepresentation"
+  - "Panatron Pte Ltd v Lee Cheow Lee [2001] 2 SLR(R) 435 (SGCA) at [14] — element (c) acted in reliance"
+
+notes: >
+  DRAFT — pending legal review by Aashna.
+  STRICT abstention — causation cannot be assumed.
+  Causation for rescission and for damages follows
+  different rules: rescission requires the
+  misrepresentation induced entry into the contract;
+  damages additionally require causation of specific loss.

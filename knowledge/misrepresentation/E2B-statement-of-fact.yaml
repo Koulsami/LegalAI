@@ -1,0 +1,45 @@
+# E2B — Statement of Existing Fact
+# Layer: ELEMENTS
+# Prerequisite: E1 (representation was made)
+
+id: E2B
+name: Statement of Existing Fact
+layer: ELEMENTS
+prerequisites:
+  - E1
+
+required_facts:
+  - representations[*].statement
+
+predicate: >
+  The representation is a statement of existing fact,
+  not a statement of opinion, future intention, law,
+  or mere commercial puff. A statement of fact is one
+  that is verifiable as true or false at the time it
+  is made.
+
+conclusion: >
+  The representation is a statement of fact capable of
+  founding a misrepresentation claim. Statements of
+  opinion, future intention, or puff do not satisfy
+  this element.
+
+burden: CLAIMANT
+modality: MUST
+protected: false
+
+abstention_policy: PERMISSIVE
+
+citations:
+  - "Common Law — distinction between fact and opinion"
+  - "Bisset v Wilkinson [1927] AC 177 (PC) — opinion not actionable unless maker had special knowledge"
+  - "Panatron Pte Ltd v Lee Cheow Lee [2001] 2 SLR(R) 435 (SGCA) at [14] — element (a) false representation of fact"
+
+notes: >
+  DRAFT — pending legal review by Aashna.
+  PERMISSIVE abstention — if statement type is unclear,
+  engine proceeds and flags for human review rather than
+  blocking classification.
+  Note: a statement of opinion by a party with special
+  knowledge or skill may still be treated as a
+  representation of fact (Smith v Land & House [1884]).

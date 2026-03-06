@@ -1,0 +1,56 @@
+# META1 — Misrepresentation Claim Viable
+# Layer: ELEMENTS
+# Prerequisites: E1, E2, E2B, E3, E4, E5
+# This is the gate node — classification proceeds only if META1 is SATISFIED.
+
+id: META1
+name: Misrepresentation Claim Viable
+layer: ELEMENTS
+prerequisites:
+  - E1
+  - E2
+  - E2B
+  - E3
+  - E4
+  - E5
+
+required_facts:
+  - representations[*].statement
+  - representations[*].maker
+  - representations[*].recipient
+  - governing_law
+
+predicate: >
+  All core elements of a misrepresentation claim are
+  satisfied: a false statement of existing fact (E1,
+  E2, E2B) was material (E3), induced the representee
+  to enter the contract (E4), and caused the contract
+  to be formed (E5). governing_law must be Singapore
+  for this module to apply. E6 (loss) is assessed
+  separately and does not gate this viability check.
+
+conclusion: >
+  A prima facie misrepresentation claim is established
+  under Singapore law. Classification and remedy
+  analysis may proceed.
+
+burden: CLAIMANT
+modality: MUST
+protected: true
+
+abstention_policy: STRICT
+
+citations:
+  - "Misrepresentation Act 1967 (2020 Rev Ed) (Cap 390)"
+  - "Panatron Pte Ltd v Lee Cheow Lee [2001] 2 SLR(R) 435 (SGCA) at [14] — five elements"
+  - "Common Law — elements of actionable misrepresentation"
+
+notes: >
+  DRAFT — pending legal review by Aashna.
+  protected: true — Validation Firewall hashes this
+  node's output before any LLM explanation is generated.
+  STRICT abstention — all six prerequisite nodes must
+  be SATISFIED. If any abstains or is NOT_SATISFIED,
+  META1 abstains and classification is blocked.
+  governing_law check: engine must confirm Singapore
+  jurisdiction before META1 can be SATISFIED.

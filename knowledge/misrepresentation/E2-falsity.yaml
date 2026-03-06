@@ -1,0 +1,43 @@
+# E2 — Falsity or Misleadingness
+# Layer: ELEMENTS
+# Prerequisite: E1 (representation was made)
+
+id: E2
+name: Falsity or Misleadingness
+layer: ELEMENTS
+prerequisites:
+  - E1
+
+required_facts:
+  - representations[*].truth_value
+  - representations[*].evidence_of_falsity
+
+predicate: >
+  The representation is false or misleading. truth_value
+  is FALSE, PARTIALLY_FALSE, or UNKNOWN. Evidence of
+  falsity or misleadingness is present. Applies also to
+  statements misleading by omission where a duty to
+  correct exists.
+
+conclusion: >
+  Falsity or misleadingness of the representation is
+  established. The statement does not reflect the true
+  state of affairs at the time it was made.
+
+burden: CLAIMANT
+modality: MUST
+protected: false
+
+abstention_policy: STRICT
+
+citations:
+  - "Misrepresentation Act 1967 (2020 Rev Ed) (Cap 390) s.2"
+  - "Panatron Pte Ltd v Lee Cheow Lee [2001] 2 SLR(R) 435 (SGCA) at [14] — element (a) false representation of fact"
+  - "Common Law — falsity requirement"
+
+notes: >
+  DRAFT — pending legal review by Aashna.
+  Includes misleading by omission where prior statement
+  has become false and maker is under duty to correct.
+  truth_value = UNKNOWN triggers abstention under STRICT
+  policy — cannot establish falsity without evidence.

@@ -7,9 +7,10 @@ describe('loadCRG', () => {
   // ── TEST 1 — loads E1 without error ────────────────────────────────────
   it('loads E1 from knowledge/misrepresentation', async () => {
     const nodes = await loadCRG('./knowledge/misrepresentation');
-    expect(nodes).toHaveLength(1);
-    expect(nodes[0]!.id).toBe('E1');
-    expect(nodes[0]!.layer).toBe('ELEMENTS');
+    expect(nodes.length).toBeGreaterThanOrEqual(1);
+    const e1 = nodes.find((n) => n.id === 'E1');
+    expect(e1).toBeDefined();
+    expect(e1!.layer).toBe('ELEMENTS');
   });
 
   // ── TEST 2 — throws on missing directory ───────────────────────────────
