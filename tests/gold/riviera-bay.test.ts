@@ -15,89 +15,16 @@
  * ─────────────────────────────────────────────────────────────────────────────
  */
 
-import type {
-  TreeNode,
-  FactBundle,
-  RepresentationFact,
-  ReasoningResult,
-} from '../../src/types';
-import type { CRGGraph } from '../../src/knowledge/graph-builder';
+import { loadCRG } from '../../src/knowledge/loader';
+import { buildGraph } from '../../src/knowledge/graph-builder';
+import type { FactBundle, RepresentationFact, ReasoningResult } from '../../src/types';
 import { reason } from '../../src/reasoning/engine';
 import { protect, verify } from '../../src/firewall/firewall';
+import path from 'path';
 
-// ─── HELPERS (copied from engine.test.ts) ───────────────────────────────────
-
-function makeNode(overrides: Partial<TreeNode> & { id: string }): TreeNode {
-  return {
-    name: 'Test Node',
-    layer: 'ELEMENTS',
-    prerequisites: [],
-    required_facts: ['some.fact'],
-    predicate: 'test predicate',
-    conclusion: 'test conclusion',
-    burden: 'CLAIMANT',
-    modality: 'MUST',
-    protected: false,
-    abstention_policy: 'STRICT',
-    citations: [],
-    ...overrides,
-  };
-}
-
-function makeMinimalGraph(nodes: TreeNode[]): CRGGraph {
-  const nodeMap = new Map<string, TreeNode>();
-  const adjacency = new Map<string, readonly string[]>();
-  for (const node of nodes) {
-    nodeMap.set(node.id, node);
-    adjacency.set(node.id, []);
-  }
-  return {
-    nodes: nodeMap,
-    adjacency,
-    topologicalOrder: nodes.map((n) => n.id),
-  };
-}
-
-// ─── NODE STUBS ─────────────────────────────────────────────────────────────
-
-const e1Node = makeNode({
-  id: 'E1',
-  layer: 'ELEMENTS',
-  abstention_policy: 'STRICT',
-  required_facts: [
-    'representations[*].statement',
-    'representations[*].maker',
-    'representations[*].recipient',
-  ],
-  citations: ['Misrepresentation Act s.2'],
-});
-
-const cl1Node = makeNode({
-  id: 'CL1',
-  layer: 'CLASSIFICATION',
-  abstention_policy: 'STRICT',
-  required_facts: ['representations[*].maker_knowledge'],
-  burden: 'CLAIMANT',
-  citations: ['Derry v Peek [1889] UKHL 1'],
-});
-
-const cl2Node = makeNode({
-  id: 'CL2',
-  layer: 'CLASSIFICATION',
-  abstention_policy: 'STRICT',
-  required_facts: ['representations[*].maker_knowledge'],
-  burden: 'DEFENDANT',
-  citations: ['Misrepresentation Act s.2(1)'],
-});
-
-const cl4Node = makeNode({
-  id: 'CL4',
-  layer: 'CLASSIFICATION',
-  abstention_policy: 'STRICT',
-  required_facts: ['representations[*].maker_knowledge'],
-  burden: 'DEFENDANT',
-  citations: ['Misrepresentation Act s.2(2)'],
-});
+const CRG_DIR = path.resolve(
+  __dirname, '../../knowledge/misrepresentation'
+);
 
 // ─── RIVIERA BAY REPRESENTATIONS ────────────────────────────────────────────
 
@@ -115,6 +42,7 @@ const R1: RepresentationFact = {
   source_location: 'Clause 4.1',
   extraction_confidence: 'HIGH',
   extraction_notes: '',
+  evidence_of_falsity: 'Tenancy agreements show actual rental income of $3,200/month',
 };
 
 const R2: RepresentationFact = {
@@ -131,6 +59,7 @@ const R2: RepresentationFact = {
   source_location: 'Clause 5.2',
   extraction_confidence: 'HIGH',
   extraction_notes: '',
+  evidence_of_falsity: 'MC dispute letters dated prior to statement show $18,000 arrears',
 };
 
 const R3: RepresentationFact = {
@@ -147,6 +76,7 @@ const R3: RepresentationFact = {
   source_location: 'Clause 6.1',
   extraction_confidence: 'MEDIUM',
   extraction_notes: 'Ambiguous whether seller knew roof was only partially repaired',
+  evidence_of_falsity: 'Inspection report shows partial repairs only; no warranty document found',
 };
 
 // ─── TESTS ──────────────────────────────────────────────────────────────────
@@ -154,14 +84,16 @@ const R3: RepresentationFact = {
 describe('Riviera Bay — Gold Test', () => {
   let result: ReasoningResult;
 
-  beforeAll(() => {
-    const graph = makeMinimalGraph([e1Node, cl1Node, cl2Node, cl4Node]);
+  beforeAll(async () => {
+    const nodes = await loadCRG(CRG_DIR);
+    const graph = buildGraph(nodes);
     const bundle: FactBundle = {
       case_id: 'RIVIERA-BAY-2024',
       extracted_at: new Date().toISOString(),
       representations: [R1, R2, R3],
       contract_formed: true,
       governing_law: 'Singapore',
+      loss_amount: 185000,
       extraction_model: 'test',
       raw_documents: ['riviera-bay-contract.pdf'],
     };
@@ -293,14 +225,16 @@ describe('Riviera Bay — Gold Test', () => {
   // ─── DETERMINISM ────────────────────────────────────────────────────────
 
   // TEST 14: running reason() twice produces identical classifications
-  it('reason() is deterministic across two runs', () => {
-    const graph = makeMinimalGraph([e1Node, cl1Node, cl2Node, cl4Node]);
+  it('reason() is deterministic across two runs', async () => {
+    const nodes = await loadCRG(CRG_DIR);
+    const graph = buildGraph(nodes);
     const bundle: FactBundle = {
       case_id: 'RIVIERA-BAY-2024',
       extracted_at: '2024-03-15T00:00:00.000Z',
       representations: [R1, R2, R3],
       contract_formed: true,
       governing_law: 'Singapore',
+      loss_amount: 185000,
       extraction_model: 'test',
       raw_documents: ['riviera-bay-contract.pdf'],
     };
