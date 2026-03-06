@@ -1,0 +1,32 @@
+{
+  "info": {
+    "name": "Reasonex — Smoke Test",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Health Check",
+      "request": {
+        "method": "GET",
+        "url": "http://localhost:3000/health"
+      }
+    },
+    {
+      "name": "Riviera Bay — Analyse",
+      "request": {
+        "method": "POST",
+        "url": "http://localhost:3000/analyse",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"case_id\": \"RIVIERA-BAY-SMOKE-TEST\",\n  \"documents\": [\n    {\n      \"filename\": \"riviera-bay-facts.txt\",\n      \"content\": \"SINGAPORE RESIDENTIAL PROPERTY SALE 2024\\n\\nSeller: Chen Wei\\nBuyer: Priya Nair\\nProperty: 12 Riviera Bay Drive, Singapore\\nPurchase Price: SGD 1,850,000\\n\\nREPRESENTATION 1 — RENTAL INCOME\\nOn 20 May 2024, Chen Wei stated in an email to Priya Nair: 'The property generates $4,800 per month in rental income consistently. This has been the case for the past two years.'\\nActual position: Tenancy agreements show rental income of $3,200 per month. Chen Wei held the tenancy agreements at the time of the statement.\\n\\nREPRESENTATION 2 — MANAGEMENT CORPORATION ARREARS\\nOn 22 May 2024, Chen Wei stated: 'There are no outstanding Management Corporation disputes or arrears in relation to this property.'\\nActual position: An MC dispute letter dated 3 March 2024 showed $18,000 in arrears. This letter was in Chen Wei's possession at the time of the statement.\\n\\nREPRESENTATION 3 — ROOF REPAIRS\\nOn 25 May 2024, Chen Wei stated in the Option to Purchase: 'The roof was fully replaced in 2022 and is under a 10-year warranty.'\\nActual position: Inspection report shows only partial repairs were carried out. No warranty document has been located. It is unclear whether Chen Wei knew the repairs were only partial.\\n\\nThe contract was signed on 1 June 2024. Governing law: Singapore.\",\n      \"doc_type\": \"STATEMENT\"\n    }\n  ]\n}"
+        }
+      }
+    }
+  ]
+}

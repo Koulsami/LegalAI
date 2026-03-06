@@ -187,22 +187,44 @@ No mock data in `src/` — test fixtures live in `tests/gold/` only.
 
 ## 9. CURRENT STATE
 
-**Week:** 1 — Foundations
-**Last completed:** Session 1 — src/utils/logger.ts + src/knowledge/loader.ts
-**Next:**
-  Session 2A — add Pipeline 1 types to src/types/index.ts
-  Session 2B — src/knowledge/graph-builder.ts (DAG + cycle detection)
+**Sessions completed:** 1–18 (all foundation sessions done)
+**Test suite:** 128/128 passing
+**Last commit:** 191a09f — extraction layer wired
+
+**What is built and working:**
+- 21 YAML rule nodes across 4 layers — legally approved
+- Reasoning engine: DAG traversal, multi-path, firewall
+- Extraction layer: Gemini (gemini-1.5-pro), temperature 0,
+  JSON mode, ExtractionError typed error codes
+- Validation: V01–V10 rules, multi-path trigger
+- Orchestrator: full pipeline wired end to end
+- API: POST /analyse, GET /health
+- Gold test: Riviera Bay, real 21-node CRG, zero stubs
+- Integration test: 8 tests, real CRG
+- Property tests: determinism, mutual exclusivity,
+  CRG structural integrity
+
+**What is NOT yet built:**
+- User interface (planned: simple HTML frontend)
+- PDF extraction (OD4 — not yet needed)
+- LLM explanation layer (post-MVP)
+- src/ingestion/ Pipeline 1 (statute/judgment ingestion)
 
 **Closed design decisions:**
-- D1–D10 (unchanged)
-- D11: CLI review interface for MVP human approval
-- D12: Human does git commit after approving each batch
+- D1–D12: all closed (see earlier sessions)
+- OD1: Gemini — gemini-1.5-pro via @google/generative-ai
+- OD2: Express
+- OD3: Custom console wrapper in src/utils/logger.ts
 
 **Open decisions:**
-- OD1: Azure OpenAI model (same model for Pipeline 1 and 2?)
-- OD2: Express vs Fastify
-- OD3: Logging library (winston vs pino)
-- OD4: PDF extraction library (pdf-parse vs pdfjs-dist)
+- OD4: PDF extraction library — pdf-parse vs pdfjs-dist
+  (not needed until documents are uploaded as PDFs)
+
+**Next steps:**
+1. Smoke test: Postman collection against live API
+   with Riviera Bay documents
+2. Simple HTML frontend for demo (one session)
+3. PDF upload support when needed (OD4)
 
 ---
 
