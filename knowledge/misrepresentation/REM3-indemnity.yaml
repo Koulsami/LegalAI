@@ -1,0 +1,58 @@
+# REM3 — Indemnity
+# Layer: REMEDIES
+# Prerequisite: META1 (claim viability gate)
+
+id: REM3
+name: Indemnity
+layer: REMEDIES
+prerequisites:
+  - META1
+
+required_facts:
+  - representations[*].induced_contract
+  - loss_amount
+
+predicate: >
+  A prima facie misrepresentation claim is established
+  (META1). The court has discretion to award an
+  indemnity to reimburse the claimant for obligations
+  necessarily created by the contract — for example,
+  fees, rates, or costs the contract required the
+  claimant to incur. Indemnity is narrower than
+  damages: it covers only obligations arising from
+  the contract itself, not all consequential losses.
+  Indemnity may be awarded with or without rescission —
+  it does not require rescission to be granted.
+  This node flags indemnity as potentially available
+  and leaves the decision to the reviewing lawyer.
+
+conclusion: >
+  Indemnity may be available at the court's discretion.
+  It covers obligations necessarily created by the
+  contract. It is narrower than damages and does not
+  require rescission to be granted. The reviewing
+  lawyer must advise on whether to pursue this remedy
+  and its likely scope.
+
+burden: CLAIMANT
+modality: MAY
+protected: false
+abstention_policy: PERMISSIVE
+
+citations:
+  - "Whittington v Seale-Hayne (1900) 82 LT 49 — indemnity covers obligations created by contract"
+  - "Misrepresentation Act 1967 (2020 Rev Ed)"
+  - "Common Law — indemnity as equitable remedy"
+
+notes: >
+  DRAFT — pending legal review by Aashna.
+  IMPORTANT: REM3 prerequisite is META1 only — not
+  REM1. Court can award indemnity without rescission
+  (approved Aashna, 2025).
+  Indemnity is narrower than damages — limited to
+  obligations the contract itself imposed on the
+  claimant, not all losses suffered.
+  protected: false — indemnity is flagged-not-decided;
+  no Firewall hashing on an undecided node.
+  PERMISSIVE abstention — engine flags availability
+  and leaves decision to lawyer.

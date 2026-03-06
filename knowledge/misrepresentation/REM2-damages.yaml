@@ -1,0 +1,67 @@
+# REM2 — Damages
+# Layer: REMEDIES
+# Prerequisites: META1, CL1, CL2, CL4, E6
+
+id: REM2
+name: Damages
+layer: REMEDIES
+prerequisites:
+  - META1
+  - CL1
+  - CL2
+  - CL4
+  - E6
+
+required_facts:
+  - representations[*].maker_knowledge
+  - loss_amount
+
+predicate: >
+  A prima facie claim is established (META1) and loss
+  is evidenced (E6). The measure of damages depends
+  on the classification:
+  — Fraud (CL1 satisfied): damages in the tort of
+    deceit — all losses flowing from the fraud
+    including unforeseeable losses.
+  — Statutory negligence (CL2 satisfied): damages
+    measured as if the misrepresentation were
+    fraudulent, including unforeseeable losses
+    (Royscot Trust v Rogerson).
+  — Innocent (CL4 satisfied): damages in lieu of
+    rescission only, at the court's discretion under
+    s.2(2) — not a right, subject to judicial
+    discretion.
+  The engine identifies the applicable damages mode
+  and flags it for lawyer review. It does not
+  calculate or award damages.
+
+conclusion: >
+  Damages may be available. The applicable measure
+  depends on the classification found. The reviewing
+  lawyer must advise on quantum, remoteness, and
+  whether the court is likely to exercise its s.2(2)
+  discretion in the claimant's favour for innocent
+  misrepresentation cases.
+
+burden: CLAIMANT
+modality: MAY
+protected: true
+abstention_policy: PERMISSIVE
+
+citations:
+  - "Misrepresentation Act 1967 (2020 Rev Ed) s.2(1) — damages for negligent misrepresentation"
+  - "Misrepresentation Act 1967 (2020 Rev Ed) s.2(2) — damages in lieu of rescission"
+  - "Royscot Trust Ltd v Rogerson [1991] 2 QB 297 (CA) — s.2(1) damages measured as if fraudulent"
+  - "Derry v Peek (1889) 14 App Cas 337 (HL) — tort of deceit, all losses recoverable"
+
+notes: >
+  DRAFT — pending legal review by Aashna.
+  PERMISSIVE abstention — if classification is
+  unresolved the engine flags possible damages modes
+  rather than blocking entirely.
+  Engine identifies damages mode from classification;
+  does not calculate quantum (approved Aashna, 2025).
+  E6 is a prerequisite — damages require evidence of
+  loss and amount. Rescission does not (approved
+  Aashna, 2025).
+  protected: true — Validation Firewall applies.

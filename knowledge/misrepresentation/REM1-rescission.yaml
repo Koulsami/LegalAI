@@ -1,0 +1,53 @@
+# REM1 — Rescission
+# Layer: REMEDIES
+# Prerequisite: META1 (claim viability gate)
+
+id: REM1
+name: Rescission
+layer: REMEDIES
+prerequisites:
+  - META1
+
+required_facts:
+  - representations[*].statement
+  - representations[*].maker
+  - representations[*].induced_contract
+
+predicate: >
+  A prima facie misrepresentation claim is established
+  (META1 satisfied). Rescission is potentially
+  available for all types of misrepresentation —
+  fraudulent, negligent, and innocent — without proof
+  of financial loss. The engine identifies rescission
+  as a possible remedy. Whether rescission is in fact
+  granted depends on bars (BAR1-BAR5), court discretion,
+  and factors the reviewing lawyer must assess.
+
+conclusion: >
+  Rescission may be available. The contract may be
+  unwound and the parties restored to their
+  pre-contractual positions. This is subject to bars
+  analysis (BAR1-BAR5) and court discretion. The
+  reviewing lawyer must advise on whether rescission
+  should be pursued and whether any bars apply.
+
+burden: CLAIMANT
+modality: MAY
+protected: true
+abstention_policy: STRICT
+
+citations:
+  - "Misrepresentation Act 1967 (2020 Rev Ed) s.1 — preserves right to rescind for innocent misrepresentation"
+  - "Misrepresentation Act 1967 (2020 Rev Ed) s.2(2) — court discretion to award damages in lieu of rescission"
+  - "Panatron Pte Ltd v Lee Cheow Lee [2001] 2 SLR(R) 435 (SGCA)"
+
+notes: >
+  DRAFT — pending legal review by Aashna.
+  IMPORTANT: Rescission does not require proof of loss
+  (E6). META1 is the only prerequisite.
+  Engine suggests rescission as a possible remedy —
+  it does not award it (approved Aashna, 2025).
+  protected: true — Validation Firewall applies.
+  Bars analysis follows in BAR1-BAR5. If any bar is
+  active, the engine flags it but does not remove
+  rescission from the suggestions — the lawyer decides.
