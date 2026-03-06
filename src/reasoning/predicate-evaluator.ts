@@ -37,7 +37,7 @@ function resolveArrayWildcard(
   );
 
   const present = values.some(
-    (v) => typeof v === 'string' && v.length > 0
+    (v) => v !== null && v !== undefined && v !== ''
   );
 
   return { values, present };

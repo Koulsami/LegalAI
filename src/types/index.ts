@@ -95,6 +95,7 @@ export interface RepresentationFact {
   readonly source_location: string;       // page, paragraph, section
   readonly extraction_confidence: ExtractionConfidence;
   readonly extraction_notes: string;      // LLM commentary on uncertainty
+  readonly evidence_of_falsity?: string;   // evidence supporting falsity finding
 }
 
 export type MakerKnowledge =
@@ -115,6 +116,7 @@ export interface FactBundle {
   readonly representations: readonly RepresentationFact[];
   readonly contract_formed: boolean | null;
   readonly governing_law: string;         // "Singapore" for MA 1967 scope
+  readonly loss_amount?: number | null;    // total loss in SGD, if quantified
   readonly extraction_model: string;      // model identifier used
   readonly raw_documents: readonly string[]; // list of filenames processed
 }
