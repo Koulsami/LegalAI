@@ -1,5 +1,19 @@
-import type { AnalyseRequest } from '../../src/types';
+import type { AnalyseRequest, FactBundle } from '../../src/types';
 import { analyse } from '../../src/orchestrator/orchestrator';
+
+jest.mock('../../src/extraction/extractor', () => ({
+  extract: jest.fn().mockImplementation(
+    async (_nodes: unknown, _docs: unknown, caseId: string): Promise<FactBundle> => ({
+      case_id: caseId,
+      extracted_at: new Date().toISOString(),
+      representations: [],
+      contract_formed: null,
+      governing_law: 'Singapore',
+      extraction_model: 'mock',
+      raw_documents: [],
+    })
+  ),
+}));
 
 // ─── TESTS ──────────────────────────────────────────────────────────────────
 

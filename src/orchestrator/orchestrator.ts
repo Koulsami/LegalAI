@@ -21,6 +21,7 @@ import type {
   CaseSummary,
 } from '../types';
 import { loadCRG } from '../knowledge/loader';
+import { extract } from '../extraction/extractor';
 import { buildGraph } from '../knowledge/graph-builder';
 import { validate } from '../validation/validator';
 import { reason } from '../reasoning/engine';
@@ -187,16 +188,8 @@ export async function analyse(
       };
     }
 
-    // Step 3: Build FactBundle (MVP — no LLM extraction yet)
-    const bundle: FactBundle = {
-      case_id: request.case_id,
-      extracted_at: new Date().toISOString(),
-      representations: [],
-      contract_formed: null,
-      governing_law: 'Singapore',
-      extraction_model: 'none-mvp',
-      raw_documents: request.documents.map((d) => d.filename),
-    };
+    // Step 3: Extract FactBundle via Gemini
+    const bundle = await extract(nodes, request.documents, request.case_id);
 
     // Step 4: Validate
     const validationResult = validate(bundle);
