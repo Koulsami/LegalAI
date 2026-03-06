@@ -14,10 +14,14 @@ required_facts:
 
 predicate: >
   The representation is false or misleading. truth_value
-  is FALSE, PARTIALLY_FALSE, or UNKNOWN. Evidence of
-  falsity or misleadingness is present. Applies also to
-  statements misleading by omission where a duty to
-  correct exists.
+  must be FALSE or PARTIALLY_FALSE with supporting
+  evidence of falsity. truth_value = UNKNOWN causes
+  this node to ABSTAIN — the engine cannot establish
+  falsity without positive evidence, though a party
+  may assert the unknown in their favour. Applies also
+  to statements misleading by omission where a duty to
+  correct exists — omission cases are flagged for human
+  review but not decided by the engine.
 
 conclusion: >
   Falsity or misleadingness of the representation is
@@ -36,8 +40,13 @@ citations:
   - "Common Law — falsity requirement"
 
 notes: >
-  DRAFT — pending legal review by Aashna.
-  Includes misleading by omission where prior statement
-  has become false and maker is under duty to correct.
-  truth_value = UNKNOWN triggers abstention under STRICT
-  policy — cannot establish falsity without evidence.
+  DRAFT — approved Q1 + Q2 (Aashna, 2025).
+  truth_value = UNKNOWN → ABSTAINED. Engine surfaces
+  flag: "Truth status unknown — cannot establish
+  falsity. A party may assert this in their favour
+  but the engine cannot determine it."
+  Misleading by omission: flagged-but-not-decided for
+  MVP. Engine notes if extraction_notes reference
+  omission or failure to disclose, but does not resolve
+  the element. No duty_to_correct fact slot required
+  for MVP.

@@ -10,6 +10,8 @@ prerequisites:
 
 required_facts:
   - representations[*].truth_value
+  - loss_amount
+  - loss_type
 
 predicate: >
   The representee suffered loss or damage as a result
@@ -41,3 +43,7 @@ notes: >
   E6 is a prerequisite of REM2 (damages) only.
   modality MAY and PERMISSIVE because absence of E6 does
   not block the claim — it only affects remedy availability.
+  required_facts addition: loss_amount and loss_type
+  added — loss quantum and category are the primary
+  facts consumed by this node and by REM2 (damages)
+  (approved Q9, Aashna, 2025).

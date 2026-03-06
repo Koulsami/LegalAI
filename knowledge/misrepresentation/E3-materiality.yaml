@@ -11,7 +11,7 @@ prerequisites:
 
 required_facts:
   - representations[*].truth_value
-  - representations[*].maker
+  - representations[*].statement
 
 predicate: >
   The false statement of fact would be considered
@@ -40,3 +40,7 @@ notes: >
   PERMISSIVE — materiality is often inferable from context
   (price, quality, title terms are presumptively material).
   Objective reasonable person test, not purely subjective.
+  required_facts correction: representations[*].statement
+  replaces representations[*].maker — materiality is
+  assessed against what was stated, not who stated it
+  (approved Q6, Aashna, 2025).

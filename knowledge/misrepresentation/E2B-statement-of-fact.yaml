@@ -28,18 +28,21 @@ burden: CLAIMANT
 modality: MUST
 protected: false
 
-abstention_policy: PERMISSIVE
+abstention_policy: STRICT
 
 citations:
   - "Common Law — distinction between fact and opinion"
   - "Bisset v Wilkinson [1927] AC 177 (PC) — opinion not actionable unless maker had special knowledge"
   - "Panatron Pte Ltd v Lee Cheow Lee [2001] 2 SLR(R) 435 (SGCA) at [14] — element (a) false representation of fact"
+  - "Smith v Land & House Property Corp (1884) 28 ChD 7 (CA) — expert opinion may constitute statement of fact where maker has special knowledge"
 
 notes: >
-  DRAFT — pending legal review by Aashna.
-  PERMISSIVE abstention — if statement type is unclear,
-  engine proceeds and flags for human review rather than
-  blocking classification.
-  Note: a statement of opinion by a party with special
-  knowledge or skill may still be treated as a
-  representation of fact (Smith v Land & House [1884]).
+  DRAFT — approved Q3 + Q4 (Aashna, 2025).
+  STRICT abstention — if statement type is ambiguous
+  or cannot be determined from the documents, the
+  engine ABSTAINs and surfaces the question to the
+  user. Classification does not proceed on an
+  unresolved statement-type question.
+  Special knowledge exception (Smith v Land & House):
+  an opinion by a party with expertise in the subject
+  matter may be treated as a statement of fact.
